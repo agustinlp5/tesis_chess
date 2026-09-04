@@ -1,0 +1,9 @@
+tensorflow[and-cuda]==2.21.0
+chess
+numpy
+pandas
+matplotlib
+tqdm
+scikit-learn
+joblib
+ipykernel
