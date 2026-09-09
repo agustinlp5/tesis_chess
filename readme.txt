@@ -58,3 +58,15 @@ Me di cuenta que me estaba fijando la posición 20 que es 10 de cada uno, al fij
 Es muy raro porque a veces como que se estanca en una los de 0.07 y no mejora, con un recall altisimo, y otras veces logra bajar, sin cambiar nada
 
 no sé que hacer cuando no cambia la loss, como que no aprende, me paso ya un par de veces. da 0 pasos
+
+
+gemini sobre la toma de datos:
+Guardadas 5000 partidas... (Descartadas por cruces: 4619).Esto no significa que de 5,000 se descartaron 4,619 (lo leíste como "de 500 partidas")
+ Significa que el sistema leyó 9,619 partidas en total: guardó 5,000 que cumplían la condición y descartó 4,619 por cruces de jugadores.
+ 4619/9619 = 48.01% de descarte. el código funcionó matemáticamente perfecto según las proporciones de jugadores que le dimos!
+ ¿Por qué el Train quedó con 91,474 partidas? Porque en el ajedrez se necesitan dos personas para generar una partida. 
+ Las probabilidades se multiplican al cuadrado.Al dividir a los jugadores en 70% Train, 15% Val y 15% Test, las probabilidades de que una partida
+ocurra dentro de un mismo grupo son:
+Train vs Train: 0.70 * 0.70 = 0.49. Val vs Val y Test vs Test: 0.15 * 0.15 = 0.0225
+Si sumamos estas tres probabilidades válidas obtenemos el $0.535$ total. Por lo tanto, de las partidas que sí se guardan, 
+la porción que va a Train es:$$\frac{0.49}{0.535} = 91.5\%$$¡Y el 91.5% de tus 100,000 partidas son exactamente esas 91,474 que obtuviste!
