@@ -70,3 +70,30 @@ ocurra dentro de un mismo grupo son:
 Train vs Train: 0.70 * 0.70 = 0.49. Val vs Val y Test vs Test: 0.15 * 0.15 = 0.0225
 Si sumamos estas tres probabilidades válidas obtenemos el $0.535$ total. Por lo tanto, de las partidas que sí se guardan, 
 la porción que va a Train es:$$\frac{0.49}{0.535} = 91.5\%$$¡Y el 91.5% de tus 100,000 partidas son exactamente esas 91,474 que obtuviste!
+
+
+Interesante para probar más adelante: 
+ * REPRESENTACIÓN:
+
+    * Hacer que las posiciones sean un tensor de 13 x 8 x 8 en vez de 832. Esto permite usar Redes Convolucionales (ResNets, por ejemplo),
+    que son el estándar de oro para procesar tableros (AlphaZero y Stockfish NNUE usan arquitecturas que entienden la grilla 8x8).
+    * Arquitectura NNUE
+    * Agregar al modelo casillas atacadas por cada jugador
+    * Agregar conteo explicito de material
+
+ * MODELO: 
+
+    * Probar diferentes normalizaciones: estandarizacion (x-media/sigma) normalizacion minmax o robust scaling
+    * Probar diferentes perdidas (especialmente para evitar que el modelo prediga el promedio): MAE o Huber loss (smooth L1)
+    * Rebalanceo del dataset Under samplear elos medianos y oversamplear extremos
+
+
+Para analizar: 
+ * No estoy agregando quien tiene el turno, y los derechos de enroque y peon al paso.
+ * Data loader para cargar datos
+
+
+Aclaraciones:
+ * Entrenar el modelo en un ply especifico soluciona dos problemas: tener que pasarle al modelo en que ply esta y el ruido que genera la 
+ diferencia entre las diferentes etapas de una partida (apertura, medio y end game)
+
