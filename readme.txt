@@ -97,3 +97,5 @@ Aclaraciones:
  * Entrenar el modelo en un ply especifico soluciona dos problemas: tener que pasarle al modelo en que ply esta y el ruido que genera la 
  diferencia entre las diferentes etapas de una partida (apertura, medio y end game)
 
+
+
