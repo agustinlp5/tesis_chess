@@ -75,27 +75,42 @@ la porción que va a Train es:$$\frac{0.49}{0.535} = 91.5\%$$¡Y el 91.5% de tus
 Interesante para probar más adelante: 
  * REPRESENTACIÓN:
 
-    * Hacer que las posiciones sean un tensor de 13 x 8 x 8 en vez de 832. Esto permite usar Redes Convolucionales (ResNets, por ejemplo),
+    * DONE Hacer que las posiciones sean un tensor de 13 x 8 x 8 en vez de 832. Esto permite usar Redes Convolucionales (ResNets, por ejemplo),
     que son el estándar de oro para procesar tableros (AlphaZero y Stockfish NNUE usan arquitecturas que entienden la grilla 8x8).
     * Arquitectura NNUE
     * Agregar al modelo casillas atacadas por cada jugador
     * Agregar conteo explicito de material
+    * Agregar antes de la ultima capa fully connected el centipawnloss calculado. (Medio trampa?)
 
  * MODELO: 
 
-    * Probar diferentes normalizaciones: estandarizacion (x-media/sigma) normalizacion minmax o robust scaling
-    * Probar diferentes perdidas (especialmente para evitar que el modelo prediga el promedio): MAE o Huber loss (smooth L1)
+    * DONE Probar diferentes normalizaciones: estandarizacion (x-media/sigma) normalizacion minmax o robust scaling
+    * DONE Probar diferentes perdidas (especialmente para evitar que el modelo prediga el promedio): MAE o Huber loss (smooth L1)
     * Rebalanceo del dataset Under samplear elos medianos y oversamplear extremos
 
 
+* BENCHMARK:
+   * INVESTIGAR El modelo antitrampas de la FIDE utiliza el "Intrinsic Performance Rating" (IPR), usa toda la partida y compara con motor stockfish
+   * INVESTIGAR Maia Chess
+   * Crear un propio benchmark usando randomforest
+
 Para analizar: 
  * No estoy agregando quien tiene el turno, y los derechos de enroque y peon al paso.
- * Data loader para cargar datos
+ * DONE Data loader para cargar datos
+ * Probar más cantidad de plies, ver hasta el 80 (enfasis en 60)
+ * Usar solo las partidas que tienen un tipo de apertura
 
 
 Aclaraciones:
  * Entrenar el modelo en un ply especifico soluciona dos problemas: tener que pasarle al modelo en que ply esta y el ruido que genera la 
  diferencia entre las diferentes etapas de una partida (apertura, medio y end game)
 
+Poner en la tesis:
+* "Límites de la información puramente posicional", el MLP, la CNN 2D y la CNN 3D convergen al mismo error (~190 MAE) debido a la limitación
+ de observar solo 4 plies (tanto en 1 ply como en 4).
+* el elo no es la mejor medición de la habilidad del jugador, pues sufre de problemas como inflación. De todas formas, como el elo la forma más común
+utilizada para emparejar jugadores con similares niveles, buscamos entender las imperfecciones del sistema utilizando modelos. "How good you are as a chess player should only be related to winning percentage. Nothing else. Even if we threw out the laughable quality of Lichess' engine analysis and used strong analysis it would still be fallible. Even if we threw that out and God handed us thirty-two man tablebases, elo would be still superior as a rating system because at the end of the day, you don't win a tournament because you made more correct moves. You win a tournament because you win games. If you play dubious gambits, unsound sacrifices, if you're a queen down and your opponent loses on time, guess what: if you win, nothing else matters."
 
+
+https://www.researchgate.net/publication/221606300_Intrinsic_Chess_Ratings
 

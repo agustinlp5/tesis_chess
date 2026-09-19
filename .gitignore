@@ -17,3 +17,4 @@ Thumbs.db
 .env
 data/*
 generado/*
+no_git/
