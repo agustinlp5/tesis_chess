@@ -18,4 +18,4 @@ Thumbs.db
 data/*
 generado/*
 no_git/
-.exe
+*.exe
