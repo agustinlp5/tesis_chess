@@ -88,6 +88,14 @@ Tesis:
 * el elo no es la mejor medición de la habilidad del jugador, pues sufre de problemas como inflación. De todas formas, como el elo la forma más común
 utilizada para emparejar jugadores con similares niveles, buscamos entender las imperfecciones del sistema utilizando modelos. "How good you are as a chess player should only be related to winning percentage. Nothing else.Aat the end of the day, you don't win a tournament because you made more correct moves. You win a tournament because you win games. If you play dubious gambits, unsound sacrifices, if you're a queen down and your opponent loses on time, guess what: if you win, nothing else matters."
 
+* TAL VEZ SE PUEDE DECIR que como las convoluciones 3D no funcionaron mejor que las 2D, entonces el ajedrez no es un entorno de transformaciones espaciales continuas (como el movimiento de una cámara), sino un sistema de estados discretos
+
+* Una fuente de ruido es que unos jugador de elo alto puede no tomarse en serio una partida
+
+* En la nube de la izquierda (Elo bajo): El modelo tiende a sobreestimar a los peores jugadores (predice 1300-1500 para jugadores de 1100). ¿Por qué? Porque en las posiciones caóticas, el modelo está inseguro. Matemáticamente, cuando un modelo basado en MSE no está seguro, la jugada más segura para minimizar el error es apostar al promedio. Además, ajedrecísticamente, un jugador de 1100 y uno de 1300 cometen errores tácticos muy similares; sus tableros son casi indistinguibles.
+
+* En la nube de la derecha (Elo súper alto): Ocurre lo opuesto. El modelo subestima a la súper-élite (predice 2600 para jugadores de 3000). Esto pasa porque entre 2600 y 3000, ambos jugadores juegan "perfecto" durante los primeros 40 plies. Al no encontrar errores que delaten el nivel, el modelo vuelve a apostar al promedio de la élite para no arriesgarse.
+
 
 https://www.researchgate.net/publication/221606300_Intrinsic_Chess_Ratings
 
@@ -110,29 +118,18 @@ Maia no va en el capítulo de "Resultados y Comparaciones", va en el "Estado del
 
 Tu tesis toma esa premisa validada por Maia y da el siguiente paso: investigar si esos errores estructurales dejan una "huella digital" en la posición estática del tablero que una red neuronal convolucional pueda rastrear sin necesidad de ver el movimiento en sí.
 
+
+
 Cosas que preguntar:
 
-   1. La justifiacion de usar las partidas de tipo rapid: queria citar el razonamiento que hizo Maia, pero no es una buena idea citarlo textualmente no?
-
-   2. Todo este tiempo estoy diciendo ELO pero en realidad no es ELO ELO o si? porque estoy utilizando en realidad el sistema de puntaje de lichess que es Lichess utiliza Glicko-2. Puedo llamarlo elo y aclarar al principio de la tesis que siempre que refiera al ELO estoy haciendo referencia al elo especifico de la pagina LICHESS de doonde sacamos lo datos? poner cualquiera que sirve referenciar a lichess
-
-   3. Sobre le formato de la tesis, cuando termino un parrafo no hay digamos una espacio vertical entre cada parrafo, solo hay una sangria, a mi no me gusta pero si es algo que tiene que ser asi por tema de la tesis entonces lo acepto. Si no lo puedo manejar como quiera?
-
-   4. Al hacer el balanceo me di cuenta que partidas de arriba de 2600 de elo eran bastante raras entonces para el balanceo puse como si fuesen 2600+ de elo. Pero para predecirlas por ahora deje que sigan prediciendo el valor original. Debería dejarlo asi? tal vez puedo dejarlo asi pero para el error no fijarme en esas partidas? idk
-
-   5. El tema de las aperturas: estuve investigando y decia que en a00 y algunos de los que dijiste habian aperturas que si podían llegar a ser normales... tal vez lo que puedo hacer es hacer el tipico plot exclusivamente de las aperturas que nombraste a ver si son algunas de las que me estan dando problemas
-   (ECO A 00 - 09, B 00 - 09, C 00 - 09, D 00 - 09, E 00 - 09 porque son feas.)
-
 Cosas que decir:
-
-   1. Da muchisimo mejor prediciendo el elo de ambos jugadores promediados que el de solo el blanco, yo supongo que eso es porque a una posicion se llega entre los dos
 
 
 To do list:
 
    1. En vez de predecir el promedio de elo de la partida, juntar partidas de un jugador y ahi intentar predecir su elo... ya de por si estoy descartando una cantidad absurda de datos pero se podría probar, pero yo lo dejaria para más adelante
    
-   2. Hacer el benchmark del autoencoder pero para eso necesito decidir que hacer con los datos: necesito entrenar con partidas de elo alto y que sean rapid, pareciera que en elichess elimino muchisimas (de 16k me quedo con 1k)
+   2. DONE Hacer el benchmark del autoencoder pero para eso necesito decidir que hacer con los datos: necesito entrenar con partidas de elo alto y que sean rapid, pareciera que en elichess elimino muchisimas (de 16k me quedo con 1k)
 
    3. En el plot de siempre diferenciar apertura, diferencia de elo entre jugadores, y pensar otras variables (para ello hay que modificar el dataset)
 
@@ -145,13 +142,13 @@ To do list:
       * Agregar conteo explicito de material
       * Agregar antes de la ultima capa fully connected el centipawnloss calculado. (Medio trampa?)
 
-   7. Almost DONE Crear un propio benchmark usando randomforest
+   7. DONE Crear un propio benchmark usando randomforest
 
    8. investigar balanceo automatico de scikit learn
 
-   9. DONE 60 y 300 (sin importar incremento)
+   9. SVM dual
 
-   10. SVM dual
+   10. probar si realmente 13 aporta o con 12 esta bien
 
-   11. DONE Sacar bot.
+   11. obtener la distribución de elos de la base que saque
 
